@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Princess Day — For My Princess</title>
+
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Homemade+Apple&family=Rubik:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- LANDING HERO -->
+  <main class="landing" id="landing">
+    <div class="hero-card">
+      <div class="photo" aria-hidden="true">
+        <img id="heroImg" src="images/princess.jpeg" alt="My Princess" onerror="this.src='https://via.placeholder.com/600x600?text=Princess'">
+        <div class="photo-glow"></div>
+      </div>
+
+      <div class="hero-text">
+        <h1 class="hero-title">Happy Princess Day, <span>My Princess</span> ❤️</h1>
+        <p class="hero-sub">A small diary I made for you — click <strong>Open Your Diary</strong> to see the handwritten pages.</p>
+
+        <div class="hero-actions">
+          <button id="openDiaryBtn" class="btn primary">Open Your Diary</button>
+          <button id="surpriseBtn" class="btn ghost">Surprise Flip</button>
+        </div>
+      </div>
+    </div>
+
+    <small class="hint">Tip: swipe or use ← / → to flip. Tap left / right half of the page to navigate.</small>
+  </main>
+
+  <!-- DIARY VIEWER (single-page hard flip) -->
+  <div class="diary-overlay" id="diaryOverlay" aria-hidden="true">
+    <div class="diary-backdrop" id="diaryBackdrop"></div>
+
+    <div class="diary-panel" role="dialog" aria-label="Princess diary">
+      <button id="closeOverlay" class="close-btn" aria-label="Close diary">✕</button>
+
+      <div class="diary-shell">
+        <h2 class="diary-title">Diary — For My Princess</h2>
+
+        <div class="viewer" id="viewer" aria-live="polite">
+          <div class="flipper" id="flipper">
+            <div class="face front" id="frontFace"></div>
+            <div class="face back" id="backFace"></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="prevBtn" class="small-btn">◀ Prev</button>
+          <div id="pageIndicator" class="page-indicator">0 / 0</div>
+          <button id="nextBtn" class="small-btn">Next ▶</button>
+        </div>
+
+        <p class="hint">Tip: Tap the left / right half of the page to go back/forward.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
