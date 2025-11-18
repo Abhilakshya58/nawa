@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Diary</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Homemade+Apple&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="diary-body">
+
+  <div class="diary-container">
+
+    <h2 class="diary-header">My Princess Diary ❤️</h2>
+    <a href="index.html" class="home-btn">🏠 Home</a>
+
+
+    
+
+    <div class="book" id="book">
+
+      <!-- Left Page -->
+      <div class="page" id="leftPage">
+        <div class="page-inner" id="leftContent"></div>
+      </div>
+
+      <!-- Right Page -->
+      <div class="page turn" id="rightPage">
+        <div class="page-inner" id="rightContent"></div>
+      </div>
+
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn" class="btn">◀ Prev</button>
+      <button id="nextBtn" class="btn">Next ▶</button>
+    </div>
+
+    <div id="pageIndicator" class="page-indicator">1 / 6</div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
