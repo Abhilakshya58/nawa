@@ -1,35 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Princess Day — For My Princess</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Will you be my Valentine?</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&display=swap"
-    rel="stylesheet"
-  />
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      --bg1: #ffd6e7;
+      --bg2: #ffeef6;
+      --card: #ffffffcc;
+      --yes: #ff3b7a;
+      --yesHover: #ff1f68;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, var(--bg2), var(--bg1));
+      font-family: system-ui, sans-serif;
+      overflow: hidden;
+      padding: 16px;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .card {
+      width: min(720px, 92vw);
+      padding: 26px 22px;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.15);
+    }
+
+    .art {
+      width: min(260px, 80vw);
+      margin: 0 auto 10px;
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 44px);
+      margin: 12px 0 18px;
+    }
+
+    .button-zone {
+      position: relative;
+      width: min(520px, 92%);
+      height: 150px;
+      margin: 0 auto;
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 16px 24px;
+      font-size: 18px;
+      font-weight: 800;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0,0,0,.14);
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    #yesBtn {
+      left: 18%;
+      background: var(--yes);
+      color: #fff;
+    }
+
+    #yesBtn:hover {
+      background: var(--yesHover);
+    }
+
+    #noBtn {
+      left: 62%;
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 13px;
+      opacity: .7;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      animation: pop .35s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
 </head>
 
-<body class="landing-body">
+<body>
+  <canvas id="confettiCanvas"></canvas>
 
-  <div class="landing-container">
-    <h1 class="landing-title">Happy Princess Day, My Princess ❤️</h1>
+  <main class="card">
+    <h1>Niharikaa will you be my valentine?</h1>
 
-    <div class="photo-frame">
-      <img src="images/princess.jpeg" class="princess-photo" alt="Princess" />
-      <div class="glow"></div>
-    </div>
+    <section class="button-zone" id="zone">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </section>
 
-    <button class="open-diary-btn" onclick="window.location.href='diary.html'">
-      Open Your Diary
-    </button>
+    <div class="hint" id="hint">“No” seems a bit shy 😈</div>
 
-    <div class="floating-hearts"></div>
-  </div>
+    <section class="result" id="result">
+      <h2>YAY! 🎉</h2>
+      <img
+        src="https://i.pinimg.com/originals/39/d9/d1/39d9d12f7360ee2650b039818da184f0.gif"
+        width="300"
+      />
+    </section>
+  </main>
 
-  <script src="script.js"></script>
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const zone = document.getElementById("zone");
+    const result = document.getElementById("result");
+    const hint = document.getElementById("hint");
+
+    /* CONFETTI */
+    const confettiCanvas = document.getElementById("confettiCanvas");
+
+    function resizeConfettiCanvas() {
+      const dpr = Math.max(1, window.devicePixelRatio || 1);
+      confettiCanvas.width = window.innerWidth * dpr;
+      confettiCanvas.height = window.innerHeight * dpr;
+      confettiCanvas.style.width = "100vw";
+      confettiCanvas.style.height = "100vh";
+    }
+
+    resizeConfettiCanvas();
+    window.addEventListener("resize", resizeConfettiCanvas);
+
+    const confettiInstance = confetti.create(confettiCanvas, {
+      resize: false,
+      useWorker: true
+    });
+
+    function fullScreenConfetti() {
+      const end = Date.now() + 1500;
+      (function frame() {
+        confettiInstance({
+          particleCount: 12,
+          spread: 100,
+          startVelocity: 45,
+          origin: { x: Math.random(), y: Math.random() * 0.3 }
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    /* YES GROW */
+    let yesScale = 1;
+    function growYes() {
+      yesScale = Math.min(2.4, yesScale + 0.15);
+      yesBtn.style.transform = `translateY(-50%) scale(${yesScale})`;
+    }
+
+    /* NO TEXT CHANGE */
+    const noTexts = [
+      "Are you sure?",
+      "Pretty please 🥺",
+      "Pookie please 💕",
+      "But :*(",
+      "I'm going to die 💔",
+      "Please babe 😭"
+    ];
+
+    let noClickCount = 0;
+
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      growYes();
+
+      if (noClickCount < noTexts.length) {
+        noBtn.textContent = noTexts[noClickCount];
+        noClickCount++;
+      }
+    });
+
+    /* YES CLICK */
+    yesBtn.addEventListener("click", () => {
+      zone.style.display = "none";
+      hint.style.display = "none";
+      result.style.display = "block";
+      resizeConfettiCanvas();
+      fullScreenConfetti();
+    });
+  </script>
 </body>
 </html>

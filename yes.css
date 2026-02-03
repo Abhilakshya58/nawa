@@ -1,0 +1,39 @@
+body {
+  height: 100vh;
+  background: radial-gradient(circle, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.love-container {
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  font-size: 3rem;
+  animation: pop 1s ease-in-out;
+}
+
+p {
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.heart {
+  font-size: 5rem;
+  margin-top: 20px;
+  animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+@keyframes pop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
+}

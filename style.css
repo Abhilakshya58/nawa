@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Main card */
+.container {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 40px 60px;
+  border-radius: 20px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  max-width: 90%;
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+/* Buttons */
+button {
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background: white;
+  color: #ff4d6d;
+  position: relative;
+}
+
+/* Floating hearts */
+.hearts::before,
+.hearts::after {
+  content: "💖";
+  font-size: 30px;
+  position: absolute;
+  animation: float 6s infinite linear;
+}
+
+.hearts::after {
+  left: 80%;
+  animation-duration: 8s;
+}
+
+@keyframes float {
+  0% {
+    bottom: -10%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .container {
+    padding: 30px 20px;
+  }
+
+  button {
+    width: 140px;
+    font-size: 1rem;
+  }
+}
